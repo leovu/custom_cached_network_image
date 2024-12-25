@@ -56,6 +56,11 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
       _url = widget.imageUrl;
       _loadImage();
     }
+    else {
+      if(!_isLoading && _image == null) {
+        _loadImage();
+      }
+    }
   }
 
   @override
