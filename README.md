@@ -21,7 +21,7 @@ CustomCachedNetworkImage(
     loadingWidget: CircularProgressIndicator(),
     placeholder: Icon(Icons.error),
     minCacheSize: 200,
-    maxCacheSize: 1000,
+    maxCacheSize: 800,
     isThumb: true,
 ),
  ```

@@ -26,7 +26,7 @@ class CustomCachedNetworkImage extends StatefulWidget {
     this.height,
     this.fit = BoxFit.cover,
     this.isThumb = true,
-    this.maxCacheSize = 1000,
+    this.maxCacheSize = 800,
     this.minCacheSize = 200,
   });
 
