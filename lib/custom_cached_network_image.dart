@@ -55,9 +55,8 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
     if (oldWidget.imageUrl != widget.imageUrl) {
       _url = widget.imageUrl;
       _loadImage();
-    }
-    else {
-      if(!_isLoading && _image == null) {
+    } else {
+      if (!_isLoading && _image == null) {
         _loadImage();
       }
     }
@@ -82,7 +81,7 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
   }
 
   _loadImage() async {
-    if(kIsWeb) {
+    if (kIsWeb) {
       setState(() {});
       return;
     }
@@ -123,7 +122,7 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
         return;
       }
 
-      final compressedBytes = await _compressImage(bytes, size);
+      final compressedBytes = await _compressImage(bytes, size, cachePath);
       await file.create(recursive: true);
       await file.writeAsBytes(compressedBytes);
       _loadImageSuccess(compressedBytes);
@@ -162,14 +161,18 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
     return null;
   }
 
-  Future<Uint8List> _compressImage(Uint8List bytes, int size) {
+  Future<Uint8List> _compressImage(Uint8List bytes, int size, String path) {
+    String extension = path.split(".").last;
     return FlutterImageCompress.compressWithList(bytes,
-        minWidth: size, minHeight: size, quality: 50);
+        minWidth: size,
+        minHeight: size,
+        quality: 50,
+        format: extension == "png" ? CompressFormat.png : CompressFormat.jpeg);
   }
 
   @override
   Widget build(BuildContext context) {
-    if(kIsWeb) {
+    if (kIsWeb) {
       return Image.network(
         _url,
         fit: widget.fit,
